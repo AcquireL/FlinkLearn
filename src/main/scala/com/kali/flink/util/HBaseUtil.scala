@@ -17,6 +17,11 @@ import org.apache.hadoop.hbase.{HBaseConfiguration, HColumnDescriptor, HTableDes
 object HBaseUtil {
   // HBase的配置类, 不需要指定配置文件名,文件名要求是hbase-site.xml
   val conf: Configuration = HBaseConfiguration.create()
+
+  conf.set("hbase.zookeeper.quorum", "learn:2181")
+  conf.set("zookeeper.znode.parent", "/hbase") // 默认使用的是zk的/hbase目录
+  conf.set("hbase.zookeeper.property.clientPort", "2181")
+
   val conn: Connection = ConnectionFactory.createConnection(conf)
   val admin: Admin = conn.getAdmin
 
@@ -190,7 +195,8 @@ object HBaseUtil {
 
   def main(args: Array[String]): Unit = {
     // 测试：插入一条数据
-    putData("test" , "123" , "info" , "tt" , "this is a test")
+    // putData("test" , "123" , "info" , "tt" , "this is a test")
+    putData("VDF:TEST","adb","info","sid","test")
     // 测试查询一条数据
     // val data1 = getData("test", "123" , "info" , "tt")
     // println(data1)
