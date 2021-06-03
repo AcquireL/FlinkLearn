@@ -53,6 +53,7 @@ public class MetricsDemo {
                     //处理单词,将单词记为(单词,1)
                     @Override
                     public Tuple2<String, Integer> map(String value) throws Exception {
+
                         myCounter.inc();//计数器+1
                         return Tuple2.of(value, 1);
                     }

@@ -13,14 +13,12 @@ import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
 import org.apache.flink.types.Row;
-import org.junit.Test;
 
 public class HBaseSinkFunctionTest {
 
     // {"aid":"1234","sid":"abc","svid":"qaz"}
     // 测试kafkaToHbase的用法
-    @Test
-    public void hbaseSinkFunctionTest() throws Exception {
+    public static void main(String[] args) throws Exception {
         //获取执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
 
@@ -36,17 +34,17 @@ public class HBaseSinkFunctionTest {
             @Override
             public Tuple2<Boolean, Row> map(String json) throws Exception {
                 JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-                String aid =  jsonObject.get("aid").getAsString();
+                String aid = jsonObject.get("aid").getAsString();
                 String sid = jsonObject.get("sid").getAsString();
                 String svid = jsonObject.get("svid").getAsString();
-                Row row=new Row(3);
-                row.setField(0,aid);
-                row.setField(1,sid);
-                row.setField(2,svid);
-                Row familyRow=new Row(2);
-                familyRow.setField(0,aid);
-                familyRow.setField(1,row);
-                return new Tuple2<Boolean, Row>(true,familyRow);
+                Row row = new Row(3);
+                row.setField(0, aid);
+                row.setField(1, sid);
+                row.setField(2, svid);
+                Row familyRow = new Row(2);
+                familyRow.setField(0, aid);
+                familyRow.setField(1, row);
+                return new Tuple2<Boolean, Row>(true, familyRow);
             }
         });
         map.print();
@@ -56,5 +54,6 @@ public class HBaseSinkFunctionTest {
 
         env.execute("sinkToHbase");
     }
+
 
 }
