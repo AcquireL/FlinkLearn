@@ -34,13 +34,14 @@ public class Flink_Kafka_EndToEnd_Exactly_Once {
         //TODO 0.env
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setRuntimeMode(RuntimeExecutionMode.AUTOMATIC);
+        env.setParallelism(1);
 
         //开启Checkpoint
         //===========类型1:必须参数=============
         //设置Checkpoint的时间间隔为1000ms做一次Checkpoint/其实就是每隔1000ms发一次Barrier!
         env.enableCheckpointing(1000);
         if (SystemUtils.IS_OS_WINDOWS) {
-            env.setStateBackend(new FsStateBackend("file:///D:/ckp"));
+            env.setStateBackend(new FsStateBackend("file:///D:/GitSpace/git-hub/FlinkLearn"));
         } else {
             env.setStateBackend(new FsStateBackend("hdfs://learn:9000/flink-checkpoint/checkpoint"));
         }
@@ -88,7 +89,7 @@ public class Flink_Kafka_EndToEnd_Exactly_Once {
         props1.setProperty("bootstrap.servers", "learn:9092");//集群地址
         props1.setProperty("group.id", "flink");//消费者组id
         props1.setProperty("auto.offset.reset", "latest");//latest有offset记录从记录位置开始消费,没有记录从最新的/最后的消息开始消费 /earliest有offset记录从记录位置开始消费,没有记录从最早的/最开始的消息开始消费
-        props1.setProperty("flink.partition-discovery.interval-millis", "5000");//会开启一个后台线程每隔5s检测一下Kafka的分区情况,实现动态分区检测
+        //props1.setProperty("flink.partition-discovery.interval-millis", "5000");//会开启一个后台线程每隔5s检测一下Kafka的分区情况,实现动态分区检测
         //props1.setProperty("enable.auto.commit", "true");//自动提交(提交到默认主题,后续学习了Checkpoint后随着Checkpoint存储在Checkpoint和默认主题中)
         //props1.setProperty("auto.commit.interval.ms", "2000");//自动提交的时间间隔
         //使用连接参数创建FlinkKafkaConsumer/kafkaSource
