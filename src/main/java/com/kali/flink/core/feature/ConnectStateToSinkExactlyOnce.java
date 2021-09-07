@@ -66,23 +66,24 @@ public class ConnectStateToSinkExactlyOnce {
         props1.setProperty("bootstrap.servers", "learn:9092");//集群地址
         props1.setProperty("group.id", "flink");//消费者组id
         props1.setProperty("auto.offset.reset", "latest");//latest有offset记录从记录位置开始消费,没有记录从最新的/最后的消息开始消费 /earliest有offset记录从记录位置开始消费,没有记录从最早的/最开始的消息开始消费
-                FlinkKafkaConsumer<String> kafkaSource = new FlinkKafkaConsumer<String>("flink_kafka1", new KafkaDeserializationSchema<String>() {
-                    @Override
-                    public boolean isEndOfStream(String s) {
-                        return false;
-                    }
+        FlinkKafkaConsumer<String> kafkaSource = new FlinkKafkaConsumer<String>("flink_kafka1", new KafkaDeserializationSchema<String>() {
+            @Override
+            public boolean isEndOfStream(String s) {
+                return false;
+            }
 
-                    @Override
-                    public String deserialize(ConsumerRecord<byte[], byte[]> consumerRecord) throws Exception {
-                        byte[] value = consumerRecord.value();
-                        return new String(value);
-                    }
+            @Override
+            public String deserialize(ConsumerRecord<byte[], byte[]> consumerRecord) throws Exception {
+                byte[] value = consumerRecord.value();
+                return new String(value);
+            }
 
-                    @Override
-                    public TypeInformation<String> getProducedType() {
-                        return TypeInformation.of(new TypeHint<String>(){});
-                    }
-                }, props1);
+            @Override
+            public TypeInformation<String> getProducedType() {
+                return TypeInformation.of(new TypeHint<String>() {
+                });
+            }
+        }, props1);
         //kafkaSource.setCommitOffsetsOnCheckpoints(true);//默认就是true//在做Checkpoint的时候提交offset到Checkpoint(为容错)和默认主题(为了外部工具获取)中
 
         //使用kafkaSource
@@ -114,8 +115,8 @@ public class ConnectStateToSinkExactlyOnce {
                 "flink_kafka2",                  // target topic
                 new KafkaSerializationSchema<String>() {
                     @Override
-                    public ProducerRecord<byte[], byte[]> serialize(String s,Long aLong) {
-                        ProducerRecord<byte[], byte[]> producerRecord = new ProducerRecord<byte[], byte[]>("",s.substring(0,1).getBytes() , s.getBytes());
+                    public ProducerRecord<byte[], byte[]> serialize(String s, Long aLong) {
+                        ProducerRecord<byte[], byte[]> producerRecord = new ProducerRecord<byte[], byte[]>("", s.substring(0, 1).getBytes(), s.getBytes());
                         return producerRecord;
                     }
                 },
