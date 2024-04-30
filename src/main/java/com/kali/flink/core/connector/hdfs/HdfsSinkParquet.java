@@ -2,13 +2,11 @@ package com.kali.flink.core.connector.hdfs;
 
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.core.fs.Path;
-import org.apache.flink.core.io.SimpleVersionedSerializer;
 import org.apache.flink.formats.parquet.avro.ParquetAvroWriters;
 import org.apache.flink.runtime.state.StateBackend;
 import org.apache.flink.runtime.state.filesystem.FsStateBackend;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.sink.filesystem.BucketAssigner;
 import org.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink;
 import org.apache.flink.streaming.api.functions.sink.filesystem.bucketassigners.DateTimeBucketAssigner;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
@@ -16,9 +14,7 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumerBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.ZoneId;
 import java.util.Properties;
-import java.util.regex.Pattern;
 
 public class HdfsSinkParquet {
     private static final Logger logger = LoggerFactory.getLogger(HdfsSinkParquet.class);
