@@ -45,7 +45,7 @@ object App {
 
     //设置如果在做Checkpoint过程中出现错误，是否让整体任务失败：true是  false不是
     //env.getCheckpointConfig().setFailOnCheckpointingErrors(false);//默认是true
-    env.getCheckpointConfig.setTolerableCheckpointFailureNumber(10) //默认值为0，表示不容忍任何检查点失败
+//    env.getCheckpointConfig.setTolerableCheckpointFailureNumber(10) //默认值为0，表示不容忍任何检查点失败
 
     //设置是否清理检查点,表示 Cancel 时是否需要保留当前的 Checkpoint，默认 Checkpoint会在作业被Cancel时被删除
     //ExternalizedCheckpointCleanup.DELETE_ON_CANCELLATION：true,当作业被取消时，删除外部的checkpoint(默认值)

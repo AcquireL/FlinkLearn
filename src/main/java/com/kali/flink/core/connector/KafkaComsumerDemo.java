@@ -21,14 +21,14 @@ public class KafkaComsumerDemo {
         //TODO 1.source
         //准备kafka连接参数
         Properties props  = new Properties();
-        props.setProperty("bootstrap.servers", "learn:9092");//集群地址
+        props.setProperty("bootstrap.servers", "acquirel:9092");//集群地址
         props.setProperty("group.id", "flink");//消费者组id
         props.setProperty("auto.offset.reset","latest");//latest有offset记录从记录位置开始消费,没有记录从最新的/最后的消息开始消费 /earliest有offset记录从记录位置开始消费,没有记录从最早的/最开始的消息开始消费
         props.setProperty("flink.partition-discovery.interval-millis","5000");//会开启一个后台线程每隔5s检测一下Kafka的分区情况,实现动态分区检测
         props.setProperty("enable.auto.commit", "true");//自动提交(提交到默认主题,后续学习了Checkpoint后随着Checkpoint存储在Checkpoint和默认主题中)
         props.setProperty("auto.commit.interval.ms", "2000");//自动提交的时间间隔
         //使用连接参数创建FlinkKafkaConsumer/kafkaSource
-        FlinkKafkaConsumer<String> kafkaSource = new FlinkKafkaConsumer<String>("flink_kafka", new SimpleStringSchema(), props);
+        FlinkKafkaConsumer<String> kafkaSource = new FlinkKafkaConsumer<String>("test", new SimpleStringSchema(), props);
         //使用kafkaSource
         DataStream<String> kafkaDS = env.addSource(kafkaSource);
 
