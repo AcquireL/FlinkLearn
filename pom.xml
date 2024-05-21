@@ -27,6 +27,14 @@
             <version>${flink.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-cep -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-cep</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka</artifactId>
@@ -53,6 +61,13 @@
             <artifactId>flink-runtime-web</artifactId>
             <version>${flink.version}</version>
         </dependency>
+
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.flink/flink-shaded-guava &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.flink</groupId>-->
+<!--            <artifactId>flink-shaded-guava</artifactId>-->
+<!--            <version>30.1.1-jre-14.0</version>-->
+<!--        </dependency>-->
 
 
     </dependencies>
@@ -84,7 +99,7 @@
                     <archive>
                         <manifest>
                             <!--这里要替换成jar包main方法所在类 -->
-                            <mainClass>com.kali.flink.core.connector.kafka.producer.MyProdeucer</mainClass>
+                            <mainClass>com.kali.flink.core.connector.KafkaSinkDemo</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Class-Path>.</Class-Path>

@@ -16,11 +16,13 @@ public class MyProdeucer {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
 
-        DataStreamSource<String> stream = env.socketTextStream("localhost", 9001);
+//        DataStreamSource<String> stream = env.socketTextStream("acquirel", 9001);
+        DataStreamSource<String> stream = env.fromElements("1","2");
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", "acquirel:9092");
 
         FlinkKafkaProducer<String> kafkaProducer = new FlinkKafkaProducer<>("test", new SimpleStringSchema(), properties);
+        stream.print();
         stream.addSink(kafkaProducer);
 
 
