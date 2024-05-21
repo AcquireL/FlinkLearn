@@ -5,6 +5,7 @@ flink run -t yarn-per-job -m yarn-cluster FlinkDemo-1.0-SNAPSHOT-jar-with-depend
 
 # 2.application
 flink run-application \
+-c com.kali.flink.core.connector.KafkaSinkDemo \
 -t yarn-application \
 -Djobmanager.memory.process.size=1024m \
 -Dtaskmanager.memory.process.size=1024m \

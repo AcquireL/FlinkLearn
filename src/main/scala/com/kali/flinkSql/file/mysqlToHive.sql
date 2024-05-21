@@ -7,7 +7,7 @@ CREATE TABLE mysql_to_hive (
   PRIMARY KEY (id) NOT ENFORCED
 ) WITH (
     'connector.type' = 'jdbc',
-    'connector.url' = 'jdbc:mysql://learn:3306/test',
+    'connector.url' = 'jdbc:mysql://acquirel:3306/testDb',
     'connector.table' = 'users',
     'connector.driver' = 'com.mysql.jdbc.Driver',
     'connector.username' = 'root',

@@ -18,8 +18,8 @@ CREATE TABLE stu_kafka(
   'connector.version' = 'universal', -- 指定Kafka连接器版本，不能为2.4.0，必须为universal，否则会报错
   'connector.topic' = 'student', -- 指定消费的topic
   'connector.startup-mode' = 'latest-offset', -- 指定起始offset位置
-  'connector.properties.zookeeper.connect' = 'learn:2181',
-  'connector.properties.bootstrap.servers' = 'learn:9092',
+  'connector.properties.zookeeper.connect' = 'acquirel:2181',
+  'connector.properties.bootstrap.servers' = 'acquirel:9092',
   'connector.properties.group.id' = 'student_1',
   'format.type' = 'json',
   'format.derive-schema' = 'true', -- 由表schema自动推导解析JSON

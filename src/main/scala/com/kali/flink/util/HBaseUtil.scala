@@ -18,7 +18,7 @@ object HBaseUtil {
   // HBase的配置类, 不需要指定配置文件名,文件名要求是hbase-site.xml
   val conf: Configuration = HBaseConfiguration.create()
 
-  conf.set("hbase.zookeeper.quorum", "learn:2181")
+  conf.set("hbase.zookeeper.quorum", "acquirel:2181")
   conf.set("zookeeper.znode.parent", "/hbase") // 默认使用的是zk的/hbase目录
   conf.set("hbase.zookeeper.property.clientPort", "2181")
 
