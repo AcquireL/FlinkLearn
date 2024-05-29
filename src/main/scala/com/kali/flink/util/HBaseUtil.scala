@@ -131,7 +131,7 @@ object HBaseUtil {
     } finally {
       table.close()
     }
-    println("数据已存入HBase")
+//    println("数据已存入HBase")
   }
 
   /**
