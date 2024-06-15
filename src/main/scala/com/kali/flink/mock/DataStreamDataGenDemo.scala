@@ -1,7 +1,7 @@
 package com.kali.flink.util
 
 import org.apache.commons.math3.random.RandomDataGenerator
-import org.apache.flink.configuration.{Configuration}
+import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.source.datagen.{DataGeneratorSource, RandomGenerator, SequenceGenerator}
 import org.apache.flink.streaming.api.scala._
 
@@ -15,6 +15,8 @@ object DataStreamDataGenDemo {
 
     env.setParallelism(1)
     env.disableOperatorChaining()
+
+
 
     // 1.0 生成随机数据RandomGenerator
     val orderInfods = env.addSource(

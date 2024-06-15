@@ -1,19 +1,13 @@
-package com.kali.flink.core.operator.window;
+package com.kali.flink.core.operator.window.processtime;
 
 import com.kali.flink.core.operator.window.Entity.WordCountCart;
-import org.apache.flink.api.common.eventtime.WatermarkGenerator;
-import org.apache.flink.api.common.eventtime.WatermarkGeneratorSupplier;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
-import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
-import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.ProcessFunction;
-import org.apache.flink.streaming.api.functions.timestamps.BoundedOutOfOrdernessTimestampExtractor;
-import org.apache.flink.streaming.api.windowing.time.Time;
+import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTimeWindows;
 
 import java.time.Duration;
 
@@ -40,7 +34,7 @@ public class StreamingTumblingTimeWindow {
         });
         // 4.执行统计操作，每个sensorId一个tumbling窗口，窗口的大小为5秒。
         SingleOutputStreamOperator<WordCountCart> result = data.keyBy(WordCountCart::getSen)
-                .timeWindow(Time.seconds(5))
+                .window(TumblingProcessingTimeWindows.of(Duration.ofSeconds(5)))
                 .reduce((a, b) -> new WordCountCart(a.getSen(), a.getCardNum() + b.getCardNum()));
 //        new ProcessFunction<String,String>(     );
         // 5.显示统计结果

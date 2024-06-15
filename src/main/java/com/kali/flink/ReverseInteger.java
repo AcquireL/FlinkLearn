@@ -1,11 +1,19 @@
 package com.kali.flink;
 
 
+import java.nio.charset.StandardCharsets;
+
 public class ReverseInteger {
     public static void main(String[] agrs) {
 
-        System.out.println(getRes(-123));
+//        System.out.println(getRes(-123));
+        String s = "{\"opt\":\"1\",\"ts\":1717945112792,\"userId\":\"2\"}";
+        System.out.println(s.getBytes().length);
+        int length = s.getBytes(StandardCharsets.UTF_8).length;
+        System.out.println(length);
+
     }
+
 
     /**
      * @param tergetInt 需反转的整数

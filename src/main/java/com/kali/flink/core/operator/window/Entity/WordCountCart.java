@@ -4,6 +4,8 @@ public class WordCountCart {
     private int sen;
     private Integer cardNum;
 
+    public WordCountCart(){}
+
     public WordCountCart(int sen, Integer cardNum) {
         this.sen = sen;
         this.cardNum = cardNum;
