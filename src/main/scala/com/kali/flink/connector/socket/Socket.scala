@@ -10,7 +10,7 @@ object Socket {
   def main(args: Array[String]): Unit = {
 
     val env = StreamExecutionEnvironment.getExecutionEnvironment
-    val text = env.socketTextStream("acquirel", 9999)
+    val text = env.socketTextStream("localhost", 9999)
 
     val counts = text.flatMap {
         _.toLowerCase.split("\\W+") filter {

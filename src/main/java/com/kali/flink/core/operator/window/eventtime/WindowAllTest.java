@@ -8,6 +8,7 @@ import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.functions.OpenContext;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.RestOptions;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
@@ -23,10 +24,9 @@ public class WindowAllTest {
         configuration.setInteger(RestOptions.PORT, 8081);
         StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(configuration);
         env.disableOperatorChaining();
-        // env.getConfig().setAutoWatermarkInterval(10); // 单位是ms, 默认是200ms
+        // env.getConfig().setAutoWatermarkInterval(10); // 单位是ms, 默认是200ms;
         DataStreamSource<String> source = new GeneratorSource().dataStreamSource(env);
         DataStream<User> transferData = source.map((MapFunction<String, User>) s -> JSONObject.parseObject(s, User.class));
-
 
         // transferData.assignTimestampsAndWatermarks(WatermarkStrategy.noWatermarks()); //禁用时间时间的推进机制
         // transferData.assignTimestampsAndWatermarks(WatermarkStrategy.forMonotonousTimestamps()); //紧跟最大时间时间
